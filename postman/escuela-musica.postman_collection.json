@@ -1,0 +1,112 @@
+{
+  "info": {
+    "_postman_id": "66c092ca-9280-411c-b661-7c7b881be75d",
+    "name": "Escuela de Música API",
+    "description": "Solicitudes CRUD para la API local de Escuela de Música. Inicia primero el servidor con npm start.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "estudianteId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Comprobar conexión",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/health"
+      }
+    },
+    {
+      "name": "Listar estudiantes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/estudiantes"
+      }
+    },
+    {
+      "name": "Crear estudiante de prueba",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Se creó el estudiante', function () {",
+              "  pm.response.to.have.status(201);",
+              "  const estudiante = pm.response.json();",
+              "  pm.expect(estudiante).to.have.property('_id');",
+              "  pm.collectionVariables.set('estudianteId', estudiante._id);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Elena Torres\",\n  \"instrumento\": \"Piano\",\n  \"nivel\": \"Principiante\",\n  \"cancionFavorita\": \"Canon en Re\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/estudiantes"
+      }
+    },
+    {
+      "name": "Buscar estudiante creado",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/estudiantes/{{estudianteId}}"
+      }
+    },
+    {
+      "name": "Actualizar instrumento del estudiante",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"instrumento\": \"Guitarra\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/api/estudiantes/{{estudianteId}}"
+      }
+    },
+    {
+      "name": "Eliminar estudiante creado",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/api/estudiantes/{{estudianteId}}"
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "escuela-musica",
+  "version": "1.0.0",
+  "description": "API REST para gestionar estudiantes de una escuela de música con MongoDB Atlas",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "mongoose": "^8.12.1"
+  }
+}
